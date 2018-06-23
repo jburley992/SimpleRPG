@@ -1,4 +1,4 @@
-import pygame, sys, random
+import pygame, sys, random,interactables
 from math import ceil as roundUp
 from pygame.locals import *
 
@@ -23,7 +23,7 @@ def waitForPlayerToPressKey():
                 return
 
 
-def tileEntireBg(tilePath,screen,windowWidth = 1600,windowHeight = 900):
+def tileEntireBg(tilePath,screen, camera=None,windowWidth = 1600,windowHeight = 900):
     #Fix Later, Make tiles load perfectly
     tile = pygame.image.load(tilePath)
     tile_rect = tile.get_rect()
@@ -34,7 +34,6 @@ def tileEntireBg(tilePath,screen,windowWidth = 1600,windowHeight = 900):
     xLoc = -tileWidth
     yLoc = 0
     for x in range( roundUp(xTiles * yTiles) + 100):
-        print(x)
         if(xLoc >= windowWidth):
             xLoc = 0
             yLoc += tileHeight
@@ -42,21 +41,77 @@ def tileEntireBg(tilePath,screen,windowWidth = 1600,windowHeight = 900):
             xLoc += tileWidth
         tile_rect.left = xLoc
         tile_rect.top = yLoc
-        screen.blit(tile,tile_rect)
+        if camera == None:
+            screen.blit(tile,tile_rect)
+        else:
+            screen.blit(tile, camera.apply(tile_rect))
 
 
-def speckleBackground(tilePath,screen,numTiles,windowWidth = 1600,windowHeight = 900):
+def speckleBackground(tilePath,numTiles,windowWidth = 1600,windowHeight = 900):
     tile = pygame.image.load(tilePath)
-    tile_rect = tile.get_rect()
     tileWidth = tile.get_size()[0]
     tileHeight = tile.get_size()[1]
+    tileLocs = []
     for x in range(numTiles):
         xpos = random.randint(0,windowWidth)
         xpos = xpos - (xpos % tileWidth)
         ypos = random.randint(0,windowHeight)
         ypos = ypos - (ypos % tileHeight)
-        tile_rect.left = xpos
-        tile_rect.top = ypos
-        screen.blit(tile, tile_rect)
+        tileLocs.append((xpos,ypos))
+    return tileLocs
+
+
+def generateWalls(tilePath,windowWidth = 1600,windowHeight = 900):
+    tile = pygame.image.load(tilePath)
+    width = roundUp(tile.get_size()[0])
+    height = roundUp(tile.get_size()[1])
+    tileLocs = []
+    for x in range(roundUp(windowWidth/width)):
+        wallTop = interactables.walls(tilePath)
+        wallBottom = interactables.walls(tilePath)
+        wallTop.rect.left = x*width
+        wallBottom.rect.left = x*width
+        wallTop.rect.top = 0
+        wallBottom.rect.top = windowHeight
+        tileLocs.append(wallTop)
+        tileLocs.append(wallBottom)
+    for y in range(roundUp(windowHeight/height)):
+        wallRight = interactables.walls(tilePath)
+        wallLeft = interactables.walls(tilePath)
+        wallLeft.rect.left = 0
+        wallRight.rect.left = windowWidth
+        wallLeft.rect.top = y*height
+        wallRight.rect.top = y*height
+        tileLocs.append(wallLeft)
+        tileLocs.append(wallRight)
+    return tileLocs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

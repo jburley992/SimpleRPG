@@ -1,0 +1,23 @@
+
+Sunday
+---------------------------------------------------------------
+	State information(Saving Game, is item in inventory, etc.)
+In game Menu(Scene)
+	Equipment
+	Spells
+	Skills
+	Stats
+
+
+
+
+
+
+
+
+
+Extras
+---------------------------------------
+	Flashing Logos on Menu
+	Scroll Through Menu
+	

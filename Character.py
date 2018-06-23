@@ -8,10 +8,10 @@ class Hero(pygame.sprite.Sprite):
     def __init__(self, image,r,l,u,d):
         # General Stuff
         pygame.sprite.Sprite.__init__(self)
-        self.movespeed = 7
+        self.movespeed = 4
         self.image = image
         self.rect = self.image.get_rect()
-        self.rect.bottom, self.rect.left = 800, 0
+        self.rect.centerx, self.rect.centery = 800, 450
         # Movement Stuff
         self.moveLeft = False
         self.moveRight = False

@@ -22,7 +22,7 @@ class Scene(object):
 
     # pass Pygame Surface to render onto in
     def renderScene(self,window):
-        print("renderScene base")
+        pass
 
 
     def changeScene(self,nextScene):
@@ -30,7 +30,6 @@ class Scene(object):
 
     def goToMenu(self,menuScene):
         # save current scene state
-        print("Hello World")
         self.changeScene(nextScene=menuScene)
 
 
@@ -52,14 +51,13 @@ class MenuScene(Scene):
         self.nonAnimated.add(crest)
         self.changeAnim = pygame.USEREVENT + 2
         pygame.time.set_timer(self.changeAnim,175)
-        self.setup = 0
-
+        self.terrainimg = pygame.image.load("tiles/tile006.png")
+        self.terrain = HF.speckleBackground("tiles/tile006.png", 100)
 
     def __str__(self):
         return "Menu"
 
     def processEvents(self,event):
-        print(event)
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
 
@@ -73,20 +71,17 @@ class MenuScene(Scene):
 
 
     def renderScene(self,window):
-        if self.setup == 0:
-            HF.tileEntireBg("tiles/tile008.png",window)
-            HF.speckleBackground("tiles/tile006.png",window, 200)
-            self.setup = 1
-        HF.draw_text('A  Simple  RPG',window,WINDOWWIDTH/2,WINDOWHEIGHT/5,font="Goth.ttf",size=72, color1=(114,60,12))
+        HF.tileEntireBg("tiles/tile008.png",window)
+        for tile in self.terrain:
+            rect = pygame.Rect(tile,(32,32))
+            window.blit(self.terrainimg, rect)
+        HF.draw_text('A  Generic  RPG',window,WINDOWWIDTH/2,WINDOWHEIGHT/5,font="Goth.ttf",size=72, color1=(114,60,12))
         HF.draw_text('Press Space To Begin',window,WINDOWWIDTH/2,WINDOWHEIGHT/1.33,font="Goth.ttf",size=60,color1=(114,60,12))
         HF.draw_text('Press Escape To exit',window,WINDOWWIDTH/2,WINDOWHEIGHT/1.33 + 80,font="Goth.ttf",size=60,color1=(114,60,12))
-
         for entity in self.entities:
             window.blit(entity.image,entity.rect)
         for sprite in self.nonAnimated:
             window.blit(sprite.image,sprite.rect)
-
-
 
 
     def updateScene(self):
@@ -101,22 +96,22 @@ class Scene_01(Scene):
     def __init__(self):
         Scene.__init__(self)
         self.next = self
-        self.background = pygame.image.load("earth.jpg")
-        self.background_RECT = self.background.get_rect()
-        self.background_RECT.centerx = WINDOWWIDTH/2
-        self.background_RECT.centery = WINDOWHEIGHT/2
         self.camera = Camera.Camera()
         self.entities = pygame.sprite.Group()
-        self.player = Character.Hero(pygame.image.load("chicken\chickenDown1.png"),
-        "chicken/chickenLeft*.png",
-        "chicken/chickenRight*.png",
-        "chicken/chickenUp*.png",
-        "chicken/chickenDown*.png")
+        self.player = Character.Hero(pygame.image.load("hero/frontwalk/tile018.png"),
+        "hero/rightWalk/tile0**.png",
+        "hero/leftWalk/tile0**.png",
+        "hero/backWalk/tile0**.png",
+        "hero/frontwalk/tile0**.png")
         self.entities.add(self.player)
-
+        self.terrainimg = pygame.image.load("tiles/tile061.png")
+        self.terrain = HF.speckleBackground("tiles/tile061.png",100)
+        self.walls = HF.generateWalls("basicWall.png")
     def updateScene(self):
         self.player.draw_hero()
         self.camera.update(self.player)
+        for wall in self.walls:
+            wall.collisionAction(self.player)
 
     def processEvents(self,event):
             if event.type == QUIT:
@@ -129,10 +124,19 @@ class Scene_01(Scene):
                     self.goToMenu(MenuScene())
 
             self.player.movementController(event)
+            print(self.player.rect)
 
     def renderScene(self,window):
         # render background, player, enemies, npc's
-        window.blit(self.background,self.camera.apply(self.background_RECT))
+        window.fill((0,0,0))
+        HF.tileEntireBg("tiles/tile056.png",window, self.camera)
+        for tile in self.terrain:
+            rect = pygame.Rect(tile,(32,32))
+            window.blit(self.terrainimg,self.camera.apply(rect))
         for entity in self.entities:
             window.blit(entity.image,self.camera.apply(entity.rect))
+        for wall in self.walls:
+            window.blit(wall.img,self.camera.apply(wall.rect))
+
+
 
