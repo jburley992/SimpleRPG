@@ -1,225 +1,105 @@
 import pygame
-from pygame import *
 
-WIN_WIDTH = 800
-WIN_HEIGHT = 640
-HALF_WIDTH = int(WIN_WIDTH / 2)
-HALF_HEIGHT = int(WIN_HEIGHT / 2)
 
-DISPLAY = (WIN_WIDTH, WIN_HEIGHT)
-DEPTH = 32
-FLAGS = 0
-CAMERA_SLACK = 30
-
-def main():
-    global cameraX, cameraY
-    pygame.init()
-    screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
-    pygame.display.set_caption("Use arrows to move!")
-    timer = pygame.time.Clock()
-
-    up = down = left = right = running = False
-    bg = Surface((32,32))
-    bg.convert()
-    bg.fill(Color("#000000"))
-    entities = pygame.sprite.Group()
-    player = Player(32, 32)
-    platforms = []
-
-    x = y = 0
-    level = [
-        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-        "P                                          P",
-        "P                                          P",
-        "P                                          P",
-        "P                    PPPPPPPPPPP           P",
-        "P                                          P",
-        "P                                          P",
-        "P                                          P",
-        "P    PPPPPPPP                              P",
-        "P                                          P",
-        "P                          PPPPPPP         P",
-        "P                 PPPPPP                   P",
-        "P                                          P",
-        "P         PPPPPPP                          P",
-        "P                                          P",
-        "P                     PPPPPP               P",
-        "P                                          P",
-        "P   PPPPPPPPPPP                            P",
-        "P                                          P",
-        "P                 PPPPPPPPPPP              P",
-        "P                                          P",
-        "P                                          P",
-        "P                                          P",
-        "P                                          P",
-        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",]
-    # build the level
-    for row in level:
-        for col in row:
-            if col == "P":
-                p = Platform(x, y)
-                platforms.append(p)
-                entities.add(p)
-            if col == "E":
-                e = ExitBlock(x, y)
-                platforms.append(e)
-                entities.add(e)
-            x += 32
-        y += 32
-        x = 0
-
-    total_level_width  = len(level[0])*32
-    total_level_height = len(level)*32
-    camera = Camera(complex_camera, total_level_width, total_level_height)
-    entities.add(player)
-
-    while 1:
-        timer.tick(60)
-
-        for e in pygame.event.get():
-
-            if e.type == KEYDOWN and e.key == K_ESCAPE:
-                sys.exit(1)
-            if e.type == KEYDOWN and e.key == K_UP:
-                up = True
-            if e.type == KEYDOWN and e.key == K_DOWN:
-                down = True
-            if e.type == KEYDOWN and e.key == K_LEFT:
-                left = True
-            if e.type == KEYDOWN and e.key == K_RIGHT:
-                right = True
-            if e.type == KEYDOWN and e.key == K_SPACE:
-                running = True
-
-            if e.type == KEYUP and e.key == K_UP:
-                up = False
-            if e.type == KEYUP and e.key == K_DOWN:
-                down = False
-            if e.type == KEYUP and e.key == K_RIGHT:
-                right = False
-            if e.type == KEYUP and e.key == K_LEFT:
-                left = False
-
-        # draw background
-        for y in range(32):
-            for x in range(32):
-                screen.blit(bg, (x * 32, y * 32))
-
-        camera.update(player)
-
-        # update player, draw everything else
-        player.update(up, down, left, right, running, platforms)
-        for e in entities:
-            screen.blit(e.image, camera.apply(e))
-
-        pygame.display.update()
-
-class Camera(object):
-    def __init__(self, camera_func, width, height):
-        self.camera_func = camera_func
-        self.state = Rect(0, 0, width, height)
-
-    def apply(self, target):
-        return target.rect.move(self.state.topleft)
-
-    def update(self, target):
-        self.state = self.camera_func(self.state, target.rect)
-
-def simple_camera(camera, target_rect):
-    l, t, _, _ = target_rect
-    _, _, w, h = camera
-    return Rect(-l+HALF_WIDTH, -t+HALF_HEIGHT, w, h)
-
-def complex_camera(camera, target_rect):
-    l, t, _, _ = target_rect
-    _, _, w, h = camera
-    l, t, _, _ = -l+HALF_WIDTH, -t+HALF_HEIGHT, w, h
-
-    l = min(0, l)                           # stop scrolling at the left edge
-    l = max(-(camera.width-WIN_WIDTH), l)   # stop scrolling at the right edge
-    t = max(-(camera.height-WIN_HEIGHT), t) # stop scrolling at the bottom
-    t = min(0, t)                           # stop scrolling at the top
-    return Rect(l, t, w, h)
-
-class Entity(pygame.sprite.Sprite):
+class SceneBase:
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
+        self.next = self
 
-class Player(Entity):
-    def __init__(self, x, y):
-        Entity.__init__(self)
-        self.xvel = 0
-        self.yvel = 0
-        self.onGround = False
-        self.image = Surface((32,32))
-        self.image.fill(Color("#0000FF"))
-        self.image.convert()
-        self.rect = Rect(x, y, 32, 32)
+    def ProcessInput(self, events, pressed_keys):
+        print("uh-oh, you didn't override this in the child class")
 
-    def update(self, up, down, left, right, running, platforms):
-        if up:
-            # only jump if on the ground
-            if self.onGround: self.yvel -= 10
-        if down:
-            pass
-        if running:
-            self.xvel = 12
-        if left:
-            self.xvel = -8
-        if right:
-            self.xvel = 8
-        if not self.onGround:
-            # only accelerate with gravity if in the air
-            self.yvel += 0.3
-            # max falling speed
-            if self.yvel > 100: self.yvel = 100
-        if not(left or right):
-            self.xvel = 0
-        # increment in x direction
-        self.rect.left += self.xvel
-        # do x-axis collisions
-        self.collide(self.xvel, 0, platforms)
-        # increment in y direction
-        self.rect.top += self.yvel
-        # assuming we're in the air
-        self.onGround = False
-        # do y-axis collisions
-        self.collide(0, self.yvel, platforms)
+    def Update(self):
+        print("uh-oh, you didn't override this in the child class")
 
-    def collide(self, xvel, yvel, platforms):
-        for p in platforms:
-            if pygame.sprite.collide_rect(self, p):
-                if isinstance(p, ExitBlock):
-                    pygame.event.post(pygame.event.Event(QUIT))
-                if xvel > 0:
-                    self.rect.right = p.rect.left
+    def Render(self, screen):
+        print("uh-oh, you didn't override this in the child class")
 
-                if xvel < 0:
-                    self.rect.left = p.rect.right
+    def SwitchToScene(self, next_scene):
 
-                if yvel > 0:
-                    self.rect.bottom = p.rect.top
-                    self.onGround = True
-                    self.yvel = 0
-                if yvel < 0:
-                    self.rect.top = p.rect.bottom
+        self.next = next_scene
+
+    def Terminate(self):
+        self.SwitchToScene(None)
 
 
-class Platform(Entity):
-    def __init__(self, x, y):
-        Entity.__init__(self)
-        self.image = Surface((32, 32))
-        self.image.convert()
-        self.image.fill(Color("#DDDDDD"))
-        self.rect = Rect(x, y, 32, 32)
+def run_game(width, height, fps, starting_scene):
+    pygame.init()
+    screen = pygame.display.set_mode((width, height))
+    clock = pygame.time.Clock()
 
-    def update(self):
+    active_scene = starting_scene
+
+    while active_scene != None:
+        pressed_keys = pygame.key.get_pressed()
+
+        # Event filtering
+        filtered_events = []
+        for event in pygame.event.get():
+            quit_attempt = False
+            if event.type == pygame.QUIT:
+                quit_attempt = True
+            elif event.type == pygame.KEYDOWN:
+                alt_pressed = pressed_keys[pygame.K_LALT] or \
+                              pressed_keys[pygame.K_RALT]
+                if event.key == pygame.K_ESCAPE:
+                    quit_attempt = True
+                elif event.key == pygame.K_F4 and alt_pressed:
+                    quit_attempt = True
+
+            if quit_attempt:
+                active_scene.Terminate()
+            else:
+                filtered_events.append(event)
+
+        active_scene.ProcessInput(filtered_events, pressed_keys)
+        active_scene.Update()
+        active_scene.Render(screen)
+
+        active_scene = active_scene.next
+
+        pygame.display.flip()
+        clock.tick(fps)
+
+
+# The rest is code where you implement your game using the Scenes model
+
+class TitleScene(SceneBase):
+    def __init__(self):
+        SceneBase.__init__(self)
+
+    def __str__(self):
+        return "Title"
+
+    def ProcessInput(self, events, pressed_keys):
+        for event in events:
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                # Move to the next scene when the user pressed Enter
+                self.SwitchToScene(GameScene())
+
+    def Update(self):
         pass
 
-class ExitBlock(Platform):
-    def __init__(self, x, y):
-        Platform.__init__(self, x, y)
-        self.image.fill(Color("#0033FF"))
+    def Render(self, screen):
+        # For the sake of brevity, the title scene is a blank red screen
+        screen.fill((255, 0, 0))
 
-if __name__ == "__main__":
-    main()
+
+class GameScene(SceneBase):
+    def __init__(self):
+        SceneBase.__init__(self)
+
+    def __str__(self):
+        return "Game"
+
+    def ProcessInput(self, events, pressed_keys):
+        pass
+
+    def Update(self):
+        pass
+
+    def Render(self, screen):
+        # The game scene is just a blank blue screen
+        screen.fill((0, 0, 255))
+
+
+run_game(400, 300, 60, TitleScene())

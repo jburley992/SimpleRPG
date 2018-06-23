@@ -11,18 +11,20 @@ WINDOWWIDTH = 1600
 WINDOWHEIGHT = 900
 windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
 pygame.display.set_caption('A generic RPG')
-background5 = pygame.image.load("earth.jpg")
+
 
 
 def main():
-    scene = SB.Scene_01(background5)
+    scene = SB.MenuScene()
 
     while True:
-        mainClock.tick(60)
-        scene.processEvents()
+        mainClock.tick(100)
+        for event in pygame.event.get():
+            scene.processEvents(event)
         scene.updateScene()
         scene.renderScene(windowSurface)
         pygame.display.update()
+        scene = scene.next
 
 
 main()

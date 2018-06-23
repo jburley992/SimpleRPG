@@ -1,39 +1,8 @@
-import pygame, glob, Camera
+import pygame
+from animation import Character_Animation as CA
 from pygame import *
 # When accessing files be sure to make it so that the files can be accessed on both
 # windows and unix environments
-
-
-
-class Animation(object):
-    def __init__(self):
-        self.walkRight = 0
-        self.walkLeft = 0
-        self.walkUp = 0
-        self.walkDown = 0
-
-    def loadAnimation(self,animR,animL,animU,animD):
-        self.walkRight = glob.glob(animR)
-        self.walkRight.sort()
-        for index,img in enumerate(self.walkRight):
-            self.walkRight[index] = pygame.image.load(img)
-
-        self.walkLeft = glob.glob(animL)
-        self.walkLeft.sort()
-        for index,img in enumerate(self.walkLeft):
-            self.walkLeft[index] = pygame.image.load(img)
-
-        self.walkUp = glob.glob(animU)
-        self.walkUp.sort()
-        for index,img in enumerate(self.walkUp):
-            self.walkUp[index] = pygame.image.load(img)
-
-
-        self.walkDown = glob.glob(animD)
-        self.walkDown.sort()
-        for index,img in enumerate(self.walkDown):
-            self.walkDown[index] = pygame.image.load(img)
-
 
 class Hero(pygame.sprite.Sprite):
     def __init__(self, image,r,l,u,d):
@@ -49,7 +18,7 @@ class Hero(pygame.sprite.Sprite):
         self.moveUp = False
         self.moveDown = False
         #Animation Stuff
-        self.animation = Animation()
+        self.animation = CA()
         self.animation.loadAnimation(r,l,u,d)
         self.currentAnimlength = 0
         self.maxAnimLength = len(self.animation.walkRight)
