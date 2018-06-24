@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9529a50e-fb47-44a1-9590-c462aa1be0fc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/menu.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Character.py" afterPath="$PROJECT_DIR$/Character.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HelperFunctions.py" afterPath="$PROJECT_DIR$/HelperFunctions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SceneBase.py" afterPath="$PROJECT_DIR$/SceneBase.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interactables.py" afterPath="$PROJECT_DIR$/interactables.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/schedule.txt" afterPath="$PROJECT_DIR$/schedule.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -505,7 +499,14 @@
       <option name="project" value="LOCAL" />
       <updated>1529768297711</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="in game menu">
+      <created>1529860351284</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1529860351284</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -537,7 +538,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added Background Tiling, Animation Controller for Static Objects, Working Menu" />
     <MESSAGE value="push w/animation" />
-    <option name="LAST_COMMIT_MESSAGE" value="push w/animation" />
+    <MESSAGE value="in game menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="in game menu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
