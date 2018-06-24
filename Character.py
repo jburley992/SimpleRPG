@@ -1,4 +1,4 @@
-import pygame
+import pygame,menu
 from animation import Character_Animation as CA
 from pygame import *
 # When accessing files be sure to make it so that the files can be accessed on both
@@ -24,6 +24,9 @@ class Hero(pygame.sprite.Sprite):
         self.maxAnimLength = len(self.animation.walkRight)
         self.changeAnim = pygame.USEREVENT + 1
         pygame.time.set_timer(self.changeAnim, 125)
+
+        #Menu
+        self.menu = menu.Menu()
 
     def draw_hero(self):
         if self.moveDown:
@@ -79,5 +82,16 @@ class Hero(pygame.sprite.Sprite):
                 self.moveUp = False
             if event.key == ord("s"):
                 self.moveDown = False
+
+
+    def menuController(self,event):
+            self.menu.change_child(event)
+
+
+
+
+
+
+
 
 

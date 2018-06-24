@@ -33,3 +33,9 @@ class walls(interactables):
                 hero.moveDown = False
                 hero.rect.bottom -= 5
 
+
+class equipment(interactables):
+    def __init__(self,filename_desc,filename_img):
+        interactables.__init__(self)
+        self.description = open(filename_desc)
+        self.image = pygame.image.load(filename_img)

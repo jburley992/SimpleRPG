@@ -28,9 +28,9 @@ class Scene(object):
     def changeScene(self,nextScene):
         self.next = nextScene
 
-    def goToMenu(self,menuScene):
+    def goToMenu(self):
         # save current scene state
-        self.changeScene(nextScene=menuScene)
+        self.changeScene(nextScene=MenuScene())
 
 
 
@@ -90,8 +90,6 @@ class MenuScene(Scene):
 
 
 
-
-
 class Scene_01(Scene):
     def __init__(self):
         Scene.__init__(self)
@@ -107,6 +105,7 @@ class Scene_01(Scene):
         self.terrainimg = pygame.image.load("tiles/tile061.png")
         self.terrain = HF.speckleBackground("tiles/tile061.png",100)
         self.walls = HF.generateWalls("basicWall.png")
+        self.isMenuOpen = False
     def updateScene(self):
         self.player.draw_hero()
         self.camera.update(self.player)
@@ -114,17 +113,27 @@ class Scene_01(Scene):
             wall.collisionAction(self.player)
 
     def processEvents(self,event):
+        if not self.isMenuOpen:
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if (event.type == self.player.changeAnim):
+                    self.player.animationController()
+                if event.type == KEYDOWN:
+                    if event.key == ord("e"):
+                        self.goToMenu()
+                    if event.key == K_TAB:
+                        self.isMenuOpen = True
+
+                self.player.movementController(event)
+        else:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-            if (event.type == self.player.changeAnim):
-                self.player.animationController()
             if event.type == KEYDOWN:
-                if event.key == ord("e"):
-                    self.goToMenu(MenuScene())
-
-            self.player.movementController(event)
-            print(self.player.rect)
+                self.player.menuController(event)
+                if event.key == K_TAB:
+                    self.isMenuOpen = False
 
     def renderScene(self,window):
         # render background, player, enemies, npc's
@@ -138,5 +147,7 @@ class Scene_01(Scene):
         for wall in self.walls:
             window.blit(wall.img,self.camera.apply(wall.rect))
 
+        if self.isMenuOpen:
+            self.player.menu.renderChildren(window)
 
 

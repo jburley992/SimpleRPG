@@ -1,12 +1,13 @@
 
 Sunday
 ---------------------------------------------------------------
-	State information(Saving Game, is item in inventory, etc.)
-In game Menu(Scene)
+
+In game Menu
 	Equipment
 	Spells
 	Skills
 	Stats
+Battle System
 
 
 
@@ -15,9 +16,8 @@ In game Menu(Scene)
 
 
 
-
-Extras
+Later
 ---------------------------------------
 	Flashing Logos on Menu
 	Scroll Through Menu
-	
+	State Information(Saving Game, is item in inventory, etc.)
