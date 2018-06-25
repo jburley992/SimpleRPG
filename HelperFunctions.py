@@ -2,6 +2,10 @@ import pygame, sys, random,interactables
 from math import ceil as roundUp
 from pygame.locals import *
 
+WINDOWWIDTH = 1600
+WINDOWHEIGHT = 900
+ICONSIZE =(32,32)
+
 def draw_text(text, window, x=0, y = 0, color1 = (255,255,255),color2 = None, font="Goth.ttf",size = 60):
     Font = pygame.font.Font(font, size)
     Display_text = Font.render(text, True, color1)
@@ -9,6 +13,7 @@ def draw_text(text, window, x=0, y = 0, color1 = (255,255,255),color2 = None, fo
     Display_text_rect.centerx = x
     Display_text_rect.centery= y
     window.blit(Display_text, Display_text_rect)
+
 
 def waitForPlayerToPressKey():
     while True:
@@ -24,16 +29,18 @@ def waitForPlayerToPressKey():
 
 
 def tileEntireBg(tilePath,screen, camera=None,windowWidth = 1600,windowHeight = 900):
-    #Fix Later, Make tiles load perfectly
+    #Fix Later, Make tiles load perfectly,
+    #Make this function run so that it returns an array of
+    #indices instead of redrawing every frame
     tile = pygame.image.load(tilePath)
     tile_rect = tile.get_rect()
     tileWidth  = tile.get_size()[0]
     tileHeight = tile.get_size()[1]
-    xTiles = windowWidth / tileWidth
+    xTiles = roundUp( windowWidth / tileWidth)
     yTiles = roundUp(windowHeight / tileHeight)
     xLoc = -tileWidth
     yLoc = 0
-    for x in range( roundUp(xTiles * yTiles) + 100):
+    for x in range( roundUp(xTiles * yTiles)):
         if(xLoc >= windowWidth):
             xLoc = 0
             yLoc += tileHeight
@@ -87,48 +94,17 @@ def generateWalls(tilePath,windowWidth = 1600,windowHeight = 900):
     return tileLocs
 
 
-
-def OpenInGameMenu(window):
-    menu = pygame.image.load("menu.png")
-    cursor = pygame.image.load("null.png")
-    menu_Rect = menu.get_rect()
-    cursor_Rect = cursor.get_rect()
-    menu_Rect.top = 0
-    menu_Rect.left = 0
-    offset = menu_Rect.top + 130
-    cursor_Rect.centery = offset
-    cursor_Rect.left = menu_Rect.left - 20
-    window.blit(menu,menu_Rect)
-    window.blit(cursor,cursor_Rect)
-    Categories = ["Inventory", "Spells","Abilities","Quests","Stats"]
-    for item in Categories:
-        draw_text(item, window, x=menu_Rect.left + 185, y=offset, size=40, font="Typewriter.ttf")
-        offset += 60
+def exitAction():
+    pygame.quit()
+    sys.exit(0)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def battleProbability():
+    # A pseudorandom Algorithm that will be called every 5 seconds to
+    #determine if you enter a battle
+    var1 = random.randint(0,100)
+    var2 = random.randint(0,100)
+    for x in range(var2 - 7,var2 +7):
+        if var1 == x:
+            return True
+    return False

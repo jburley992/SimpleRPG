@@ -1,4 +1,4 @@
-import Character, pygame, Camera, sys
+import Character, pygame, Camera
 import HelperFunctions as HF
 from animation import Static_Animation as SA
 from pygame.locals import *
@@ -25,7 +25,7 @@ class Scene(object):
         pass
 
 
-    def changeScene(self,nextScene):
+    def changeScene(self,nextScene,player=None):
         self.next = nextScene
 
     def goToMenu(self):
@@ -53,6 +53,11 @@ class MenuScene(Scene):
         pygame.time.set_timer(self.changeAnim,175)
         self.terrainimg = pygame.image.load("tiles/tile006.png")
         self.terrain = HF.speckleBackground("tiles/tile006.png", 100)
+        self.cursor = pygame.image.load("null.png")
+        self.cursor_Rect = self.cursor.get_rect()
+        self.cursor_Rect.centery = WINDOWHEIGHT/1.33
+        self.cursor_Rect.left = WINDOWWIDTH/3
+        self.cursorLoc = 0
 
     def __str__(self):
         return "Menu"
@@ -60,14 +65,24 @@ class MenuScene(Scene):
     def processEvents(self,event):
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
-
-                pygame.quit()
-                sys.exit()
-            if event.key == K_SPACE:
-                self.changeScene(Scene_01())
+                HF.exitAction()
+            if event.key == K_RETURN:
+                if self.cursorLoc == 0:
+                    self.changeScene(Scene_01())
+                if self.cursorLoc == 1:
+                    HF.exitAction()
+            if event.key == ord("w"):
+                if self.cursorLoc > 0:
+                    self.cursor_Rect.top -= 80
+                    self.cursorLoc -= 1
+            if event.key == ord("s"):
+                if self.cursorLoc < 2:
+                    self.cursor_Rect.top += 80
+                    self.cursorLoc += 1
         if event.type == self.changeAnim:
             for entity in self.entities:
                 entity.draw_animation()
+
 
 
     def renderScene(self,window):
@@ -82,6 +97,7 @@ class MenuScene(Scene):
             window.blit(entity.image,entity.rect)
         for sprite in self.nonAnimated:
             window.blit(sprite.image,sprite.rect)
+        window.blit(self.cursor,self.cursor_Rect)
 
 
     def updateScene(self):
@@ -106,6 +122,8 @@ class Scene_01(Scene):
         self.terrain = HF.speckleBackground("tiles/tile061.png",100)
         self.walls = HF.generateWalls("basicWall.png")
         self.isMenuOpen = False
+        self.BATTLE = pygame.USEREVENT + 3
+        pygame.time.set_timer(self.BATTLE, 5000)
     def updateScene(self):
         self.player.draw_hero()
         self.camera.update(self.player)
@@ -115,8 +133,7 @@ class Scene_01(Scene):
     def processEvents(self,event):
         if not self.isMenuOpen:
                 if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
+                    HF.exitAction()
                 if (event.type == self.player.changeAnim):
                     self.player.animationController()
                 if event.type == KEYDOWN:
@@ -124,12 +141,14 @@ class Scene_01(Scene):
                         self.goToMenu()
                     if event.key == K_TAB:
                         self.isMenuOpen = True
+                if event.type == self.BATTLE:
+                    if HF.battleProbability():
+                        self.changeScene(Battle([]),self.player)
 
                 self.player.movementController(event)
         else:
             if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
+                HF.exitAction()
             if event.type == KEYDOWN:
                 self.player.menuController(event)
                 if event.key == K_TAB:
@@ -149,5 +168,27 @@ class Scene_01(Scene):
 
         if self.isMenuOpen:
             self.player.menu.renderChildren(window)
+####################################################################
 
 
+
+class Battle(Scene):
+    #pass in array of enemies
+    def __init__(self,enemies):
+        Scene.__init__(self)
+        self.enemies = enemies
+
+
+
+    def processEvents(self,event):
+        pass
+
+    def updateScene(self):
+        pass
+
+    # pass Pygame Surface to render onto in
+    def renderScene(self,window):
+        pass
+
+
+####################################################################

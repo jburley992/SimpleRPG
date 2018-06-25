@@ -1,18 +1,16 @@
 
-Sunday
----------------------------------------------------------------
+Monday
+---------------------------------------
+Refactor SceneBase.py
+Refactor Menu.py
+Inspect Character for refactor
 
-In game Menu
-	Equipment
-	Spells
-	Skills
-	Stats
+
+Tuesday
+-------------------------------------------
 Battle System
-
-
-
-
-
+NPC
+Spells/Weapons
 
 
 

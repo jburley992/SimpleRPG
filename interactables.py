@@ -2,8 +2,10 @@ import pygame
 
 class interactables(pygame.sprite.Sprite):
 
-    def __init__(self):
+    def __init__(self,img=None):
         pygame.sprite.Sprite.__init__(self)
+        self.img = pygame.image.load(img)
+        self.rect = self.img.get_rect()
 
     def collisionAction(self,hero):
         print("Overwrite")
@@ -14,9 +16,7 @@ class interactables(pygame.sprite.Sprite):
 
 class walls(interactables):
     def __init__(self,img):
-        interactables.__init__(self)
-        self.img = pygame.image.load(img)
-        self.rect = self.img.get_rect()
+        interactables.__init__(self,img)
 
     def collisionAction(self,hero):
         if self.rect.colliderect(hero.rect):
@@ -34,8 +34,10 @@ class walls(interactables):
                 hero.rect.bottom -= 5
 
 
-class equipment(interactables):
-    def __init__(self,filename_desc,filename_img):
-        interactables.__init__(self)
-        self.description = open(filename_desc)
-        self.image = pygame.image.load(filename_img)
+class Weapons(interactables):
+    def __init__(self,img,damage,ability = None):
+        interactables.__init__(self,img)
+        self.description = "It's very pointy..."
+        self.damage = damage
+        #Elemental Weapons?
+        self.ability = ability
