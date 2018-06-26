@@ -1,21 +1,22 @@
 #Python Version == 3.2.5
-import pygame
+import pygame,Character,HelperFunctions
 import SceneBase as SB
 from pygame.locals import *
 
 pygame.init()
 mainClock = pygame.time.Clock()
 
-
-WINDOWWIDTH = 1600
-WINDOWHEIGHT = 900
-windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
+windowSurface = pygame.display.set_mode((HelperFunctions.WINDOWWIDTH, HelperFunctions.WINDOWHEIGHT), 0, 32)
 pygame.display.set_caption('A generic RPG')
 
-
+player = Character.Hero(pygame.image.load("hero/frontwalk/tile018.png"),
+        "hero/rightWalk/tile0**.png",
+        "hero/leftWalk/tile0**.png",
+        "hero/backWalk/tile0**.png",
+        "hero/frontwalk/tile0**.png")
 
 def main():
-    scene = SB.MenuScene()
+    scene = SB.MenuScene(player)
 
     while True:
         mainClock.tick(100)

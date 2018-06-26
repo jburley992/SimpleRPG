@@ -2,8 +2,8 @@ import pygame, sys, random,interactables
 from math import ceil as roundUp
 from pygame.locals import *
 
-WINDOWWIDTH = 1600
-WINDOWHEIGHT = 900
+WINDOWWIDTH = 3440
+WINDOWHEIGHT = 1440
 ICONSIZE =(32,32)
 
 def draw_text(text, window, x=0, y = 0, color1 = (255,255,255),color2 = None, font="Goth.ttf",size = 60):
@@ -28,33 +28,31 @@ def waitForPlayerToPressKey():
                 return
 
 
-def tileEntireBg(tilePath,screen, camera=None,windowWidth = 1600,windowHeight = 900):
-    #Fix Later, Make tiles load perfectly,
-    #Make this function run so that it returns an array of
-    #indices instead of redrawing every frame
+def tileEntireBg(tilePath,windowWidth = WINDOWWIDTH,windowHeight = WINDOWHEIGHT):
     tile = pygame.image.load(tilePath)
-    tile_rect = tile.get_rect()
     tileWidth  = tile.get_size()[0]
     tileHeight = tile.get_size()[1]
     xTiles = roundUp( windowWidth / tileWidth)
     yTiles = roundUp(windowHeight / tileHeight)
     xLoc = -tileWidth
     yLoc = 0
+    tiles = []
     for x in range( roundUp(xTiles * yTiles)):
         if(xLoc >= windowWidth):
             xLoc = 0
             yLoc += tileHeight
         else:
             xLoc += tileWidth
-        tile_rect.left = xLoc
-        tile_rect.top = yLoc
-        if camera == None:
-            screen.blit(tile,tile_rect)
-        else:
-            screen.blit(tile, camera.apply(tile_rect))
+        tiles.append((xLoc,yLoc))
+    return tiles
+
+def tileInACircle(tilePath,radius=300):
+    pass
 
 
-def speckleBackground(tilePath,numTiles,windowWidth = 1600,windowHeight = 900):
+
+
+def speckleBackground(tilePath,numTiles,windowWidth = WINDOWWIDTH,windowHeight = WINDOWHEIGHT):
     tile = pygame.image.load(tilePath)
     tileWidth = tile.get_size()[0]
     tileHeight = tile.get_size()[1]
@@ -68,7 +66,7 @@ def speckleBackground(tilePath,numTiles,windowWidth = 1600,windowHeight = 900):
     return tileLocs
 
 
-def generateWalls(tilePath,windowWidth = 1600,windowHeight = 900):
+def generateWalls(tilePath,windowWidth = WINDOWWIDTH,windowHeight = WINDOWHEIGHT):
     tile = pygame.image.load(tilePath)
     width = roundUp(tile.get_size()[0])
     height = roundUp(tile.get_size()[1])
@@ -108,3 +106,7 @@ def battleProbability():
         if var1 == x:
             return True
     return False
+
+
+def draw_clouds():
+    pass

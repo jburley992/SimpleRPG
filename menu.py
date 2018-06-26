@@ -8,18 +8,18 @@ class MenuItem(object):
     def __init__(self,title,func):
         self.title = title
         self.items = []
-        #Pass in a function that will change actions
         self.action = func
         self.index = 0
 
     def display_items(self,window):
         #implement scrolling through Menu
+        #Menu Scaling
         rect = pygame.Rect((HF.WINDOWWIDTH/2 - 350, 130), HF.ICONSIZE)
         textRect = pygame.Rect((HF.WINDOWWIDTH/2 - 350, 130), HF.ICONSIZE)
         textRect.left += 225
         for item in self.items:
-            if item.img != None:
-                window.blit(item.img,rect)
+            if item.image != None:
+                window.blit(item.image,rect)
                 HF.draw_text(item.description[:25],window,textRect.centerx,textRect.centery,size=24,font="Typewriter.ttf")
                 rect.top += 60
                 textRect.top += 60
@@ -43,12 +43,14 @@ class Menu(object):
             MenuItem("Stats",None),
             MenuItem("Exit",HF.exitAction)
         ]
+        #Fix Naming Conventions
         self.children[0].addItem(w("null.png",5))
         self.selectedChild = 0
         self.menu = pygame.image.load("menu.png")
         self.menu_Rect = self.menu.get_rect()
-        self.menu_Rect.top = 0
-        self.menu_Rect.left = 0
+        #Implement UI Scaling At some point
+        self.menu_Rect.centerx = HF.WINDOWWIDTH/2
+        self.menu_Rect.centery = HF.WINDOWHEIGHT/2
         self.offset = self.menu_Rect.top + 130
         self.cursor = pygame.image.load("null.png")
         self.cursor_Rect = self.cursor.get_rect()

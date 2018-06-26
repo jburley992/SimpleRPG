@@ -28,7 +28,7 @@ class Hero(pygame.sprite.Sprite):
         #Menu
         self.menu = menu.Menu()
 
-    def draw_hero(self):
+    def move_hero(self):
         if self.moveDown:
             self.rect.top += self.movespeed
         if self.moveUp:
@@ -37,7 +37,6 @@ class Hero(pygame.sprite.Sprite):
             self.rect.left -= self.movespeed
         if self.moveRight:
             self.rect.right += self.movespeed
-
 
 
     def animationController(self):

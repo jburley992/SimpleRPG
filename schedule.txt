@@ -1,9 +1,7 @@
 
 Monday
 ---------------------------------------
-Refactor SceneBase.py
-Refactor Menu.py
-Inspect Character for refactor
+Fix Scaling For any resolution
 
 
 Tuesday
