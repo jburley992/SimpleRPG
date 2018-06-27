@@ -1,11 +1,7 @@
 
-Monday
----------------------------------------
-Fix Scaling For any resolution
-
-
 Tuesday
 -------------------------------------------
+Fix Scaling For any resolution
 Battle System
 NPC
 Spells/Weapons

@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9529a50e-fb47-44a1-9590-c462aa1be0fc" name="Default" comment="Working In Game Menu, basic Weapons, NPC file created, Battle Scene Added">
+    <list default="true" id="9529a50e-fb47-44a1-9590-c462aa1be0fc" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/a Simple RPG.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/a Simple RPG.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Camera.py" beforeDir="false" afterPath="$PROJECT_DIR$/Camera.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Character.py" beforeDir="false" afterPath="$PROJECT_DIR$/Character.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelperFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/HelperFunctions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NPC.py" beforeDir="false" afterPath="$PROJECT_DIR$/NPC.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SceneBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/SceneBase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interactables.py" beforeDir="false" afterPath="$PROJECT_DIR$/interactables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu.png" beforeDir="false" afterPath="$PROJECT_DIR$/menu.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/schedule.txt" beforeDir="false" afterPath="$PROJECT_DIR$/schedule.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,22 +16,22 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/a_Simple_RPG$main.coverage" NAME="main Coverage Results" MODIFIED="1529977022585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/a_Simple_RPG$main.coverage" NAME="main Coverage Results" MODIFIED="1530054127487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/a_Simple_RPG$menu.coverage" NAME="menu Coverage Results" MODIFIED="1529962341751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="DockManager">
-    <window id="1">
+    <window id="2">
       <content type="file-editors">
         <state>
           <leaf>
             <file leaf-file-name="schedule.txt" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/schedule.txt">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="68">
-                    <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+                  <state relative-caret-position="51">
+                    <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
                   </state>
                 </provider>
               </entry>
@@ -48,9 +42,132 @@
     </window>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.42747357">
+    <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+        <splitter split-orientation="horizontal" split-proportion="0.5">
+          <split-first>
+            <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+              <file leaf-file-name="NPC.py" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/NPC.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="770">
+                      <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="interactables.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/interactables.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="646">
+                      <caret line="38" column="41" selection-start-line="38" selection-start-column="41" selection-end-line="38" selection-end-column="41" />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="menu.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/menu.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="-534">
+                      <caret line="10" selection-start-line="10" selection-end-line="10" />
+                      <folding>
+                        <element signature="e#0#13#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="animation.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/animation.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="-262" />
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/main.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="340">
+                      <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
+                      <folding>
+                        <element signature="e#25#64#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="Camera.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/Camera.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="102">
+                      <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+                      <folding>
+                        <element signature="e#0#13#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="HelperFunctions.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/HelperFunctions.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="986">
+                      <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+                      <folding>
+                        <element signature="e#0#40#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="SceneBase.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/SceneBase.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="-619">
+                      <caret line="124" column="23" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="23" />
+                      <folding>
+                        <element signature="e#0#32#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-first>
+          <split-second>
+            <leaf>
+              <file leaf-file-name="Character.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/Character.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="17">
+                      <caret line="41" column="12" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
+                      <folding>
+                        <element signature="e#0#18#0" expanded="true" />
+                        <element signature="e#286#982#0" />
+                        <element signature="e#1017#1290#0" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="SceneBase.py" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/SceneBase.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="323">
+                      <caret line="124" column="23" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="23" />
+                      <folding>
+                        <element signature="e#0#32#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-second>
+        </splitter>
+      </split-first>
+      <split-second>
+        <leaf>
           <file leaf-file-name="interactables.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/interactables.py">
               <provider selected="true" editor-type-id="text-editor">
@@ -60,83 +177,14 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="menu.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/menu.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
-                  <caret line="10" selection-start-line="10" selection-end-line="10" />
-                  <folding>
-                    <element signature="e#0#13#0" expanded="true" />
-                    <element signature="e#1744#1770#0" />
-                    <element signature="e#1819#2370#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Character.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Character.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Character.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="204">
-                  <caret line="41" column="12" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
+                <state relative-caret-position="-34">
+                  <caret line="7" column="38" lean-forward="true" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
-                    <element signature="e#286#982#0" />
                     <element signature="e#1017#1290#0" />
-                    <element signature="e#1337#1866#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="SceneBase.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/SceneBase.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="322">
-                  <caret line="124" column="23" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="23" />
-                  <folding>
-                    <element signature="e#0#32#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="NPC.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/NPC.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="255">
-                  <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="HelperFunctions.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/HelperFunctions.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="85">
-                  <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-                  <folding>
-                    <element signature="e#0#40#0" expanded="true" />
-                    <element signature="e#558#894#0" />
-                    <element signature="e#1861#2245#0" />
-                    <element signature="e#2319#3201#0" />
-                    <element signature="e#3287#3556#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/main.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="136">
-                  <caret line="8" column="102" selection-start-line="8" selection-start-column="102" selection-end-line="8" selection-end-column="102" />
-                  <folding>
-                    <element signature="e#25#64#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -168,8 +216,8 @@
       <find>window</find>
       <find>self.camera</find>
       <find>hf.w</find>
-      <find>900</find>
       <find>img</find>
+      <find>900</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -187,12 +235,12 @@
         <option value="$PROJECT_DIR$/backGroundTiler.py" />
         <option value="$PROJECT_DIR$/Character.py" />
         <option value="$PROJECT_DIR$/Camera.py" />
-        <option value="$PROJECT_DIR$/schedule.txt" />
         <option value="$PROJECT_DIR$/HelperFunctions.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/interactables.py" />
         <option value="$PROJECT_DIR$/SceneBase.py" />
         <option value="$PROJECT_DIR$/menu.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/schedule.txt" />
         <option value="$PROJECT_DIR$/NPC.py" />
       </list>
     </option>
@@ -210,7 +258,7 @@
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="height" value="1096" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -236,7 +284,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -433,21 +481,27 @@
       <option name="project" value="LOCAL" />
       <updated>1529889471637</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Refactor">
+      <created>1529977667248</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1529977667249</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="3456" height="1416" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.19892885" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.19892885" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.092151165" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.092151165" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -474,7 +528,8 @@
     <MESSAGE value="push w/animation" />
     <MESSAGE value="in game menu" />
     <MESSAGE value="Working In Game Menu, basic Weapons, NPC file created, Battle Scene Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working In Game Menu, basic Weapons, NPC file created, Battle Scene Added" />
+    <MESSAGE value="Refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -491,8 +546,6 @@
           <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#1744#1770#0" />
-            <element signature="e#1819#2370#0" />
           </folding>
         </state>
       </provider>
@@ -524,9 +577,7 @@
           <caret line="28" column="31" lean-forward="true" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#286#982#0" />
             <element signature="e#1017#1290#0" />
-            <element signature="e#1337#1866#0" />
           </folding>
         </state>
       </provider>
@@ -561,9 +612,7 @@
           <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#286#982#0" />
             <element signature="e#1017#1290#0" />
-            <element signature="e#1337#1866#0" />
           </folding>
         </state>
       </provider>
@@ -611,9 +660,7 @@
           <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#286#982#0" />
             <element signature="e#1017#1290#0" />
-            <element signature="e#1337#1866#0" />
           </folding>
         </state>
       </provider>
@@ -658,9 +705,7 @@
           <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#286#982#0" />
             <element signature="e#1017#1290#0" />
-            <element signature="e#1337#1866#0" />
           </folding>
         </state>
       </provider>
@@ -744,9 +789,7 @@
           <caret line="5" selection-start-line="5" selection-end-line="5" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#286#982#0" />
             <element signature="e#1017#1290#0" />
-            <element signature="e#1337#1866#0" />
           </folding>
         </state>
       </provider>
@@ -805,9 +848,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/animation.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Camera.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -818,34 +858,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/schedule.txt">
+    <entry file="file://$PROJECT_DIR$/animation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="-262" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/menu.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-534">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/HelperFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+        <state relative-caret-position="986">
+          <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
-            <element signature="e#558#894#0" />
-            <element signature="e#1861#2245#0" />
-            <element signature="e#2319#3201#0" />
-            <element signature="e#3287#3556#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="102" selection-start-line="8" selection-start-column="102" selection-end-line="8" selection-end-column="102" />
+        <state relative-caret-position="340">
+          <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
           <folding>
             <element signature="e#25#64#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/schedule.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -858,7 +909,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SceneBase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
+        <state relative-caret-position="-619">
           <caret line="124" column="23" selection-start-line="124" selection-start-column="20" selection-end-line="124" selection-end-column="23" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
@@ -868,33 +919,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Character.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="41" column="12" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="12" />
+        <state relative-caret-position="-34">
+          <caret line="7" column="38" lean-forward="true" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#286#982#0" />
             <element signature="e#1017#1290#0" />
-            <element signature="e#1337#1866#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/menu.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#1744#1770#0" />
-            <element signature="e#1819#2370#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/NPC.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+        <state relative-caret-position="770">
+          <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
         </state>
       </provider>
     </entry>
