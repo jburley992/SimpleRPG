@@ -2,8 +2,8 @@ import pygame, sys, random,interactables
 from math import ceil as roundUp
 from pygame.locals import *
 
-WINDOWWIDTH = 3440
-WINDOWHEIGHT = 1440
+WINDOWWIDTH = 1920
+WINDOWHEIGHT = 1080
 ICONSIZE =(32,32)
 
 def draw_text(text, window, x=0, y = 0, color1 = (255,255,255),color2 = None, font="Goth.ttf",size = 60):
@@ -15,44 +15,29 @@ def draw_text(text, window, x=0, y = 0, color1 = (255,255,255),color2 = None, fo
     window.blit(Display_text, Display_text_rect)
 
 
-def waitForPlayerToPressKey():
-    while True:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == KEYDOWN:
-                if event.key == K_ESCAPE: # pressing escape quits
-                    pygame.quit()
-                    sys.exit()
-                return
 
 
-def tileEntireBg(tilePath,windowWidth = WINDOWWIDTH,windowHeight = WINDOWHEIGHT):
+def tileEntireBg(tilePath,windowWidth = WINDOWWIDTH,windowHeight = WINDOWHEIGHT,yLoc=0):
     tile = pygame.image.load(tilePath)
     tileWidth  = tile.get_size()[0]
     tileHeight = tile.get_size()[1]
     xTiles = roundUp( windowWidth / tileWidth)
     yTiles = roundUp(windowHeight / tileHeight)
     xLoc = -tileWidth
-    yLoc = 0
     tiles = []
-    for x in range( roundUp(xTiles * yTiles)):
-        if(xLoc >= windowWidth):
-            xLoc = 0
-            yLoc += tileHeight
-        else:
-            xLoc += tileWidth
-        tiles.append((xLoc,yLoc))
+    for y in range(yTiles):
+        for x in range(xTiles+40):
+            if(xLoc >= windowWidth):
+                xLoc = 0
+                yLoc += tileHeight
+            else:
+                xLoc += tileWidth
+            tiles.append((xLoc,yLoc))
     return tiles
 
-def tileInACircle(tilePath,radius=300):
-    pass
 
 
-
-
-def speckleBackground(tilePath,numTiles,windowWidth = WINDOWWIDTH,windowHeight = WINDOWHEIGHT):
+def speckleBackground(tilePath,numTiles,windowWidth = WINDOWWIDTH,windowHeight = WINDOWHEIGHT,min_height=0):
     tile = pygame.image.load(tilePath)
     tileWidth = tile.get_size()[0]
     tileHeight = tile.get_size()[1]
@@ -60,13 +45,15 @@ def speckleBackground(tilePath,numTiles,windowWidth = WINDOWWIDTH,windowHeight =
     for x in range(numTiles):
         xpos = random.randint(0,windowWidth)
         xpos = xpos - (xpos % tileWidth)
-        ypos = random.randint(0,windowHeight)
+        ypos = random.randint(min_height,windowHeight)
         ypos = ypos - (ypos % tileHeight)
         tileLocs.append((xpos,ypos))
     return tileLocs
 
 
 def generateWalls(tilePath,windowWidth = WINDOWWIDTH,windowHeight = WINDOWHEIGHT):
+    if tilePath == None:
+        return None
     tile = pygame.image.load(tilePath)
     width = roundUp(tile.get_size()[0])
     height = roundUp(tile.get_size()[1])
@@ -92,10 +79,6 @@ def generateWalls(tilePath,windowWidth = WINDOWWIDTH,windowHeight = WINDOWHEIGHT
     return tileLocs
 
 
-def exitAction():
-    pygame.quit()
-    sys.exit(0)
-
 
 def battleProbability():
     # A pseudorandom Algorithm that will be called every 5 seconds to
@@ -108,5 +91,69 @@ def battleProbability():
     return False
 
 
-def draw_clouds():
-    pass
+def selectTextSize():
+    textSize = 0
+    if WINDOWWIDTH >= 3440:
+        textSize = 24
+    if WINDOWWIDTH >= 2560:
+        textSize = 20
+    if WINDOWWIDTH >= 1600:
+        textSize = 18
+    else:
+        textSize = 14
+    return textSize
+
+def selectScale():
+    scale = 0
+    if WINDOWWIDTH >= 3440:
+        scale = 1
+    if WINDOWWIDTH >= 2560:
+        scale = 0.8
+    if WINDOWWIDTH >= 1600:
+        scale = 0.6
+    else:
+        scale = 0.5
+    return scale
+
+
+def exitAction(event=None):
+    pygame.quit()
+    sys.exit(0)
+
+
+
+def waitForPlayerToPressKey():
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE: # pressing escape quits
+                    pygame.quit()
+                    sys.exit()
+                return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

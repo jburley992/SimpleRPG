@@ -1,21 +1,32 @@
 # Design enemy so that it Can be part of a sprite Group
 import pygame,random
+from animation import Character_Animation as CA
 
 class NPC(pygame.sprite.Sprite):
-    def __init__(self,image):
+    def __init__(self,filepath):
         pygame.sprite.Sprite.__init__(self)
-        self.image = image
+        self.image = pygame.image.load( filepath + "/Right/tile001.png")
+        self.image = pygame.transform.scale(self.image,(64,64))
         self.rect = self.image.get_rect()
 
 
 
 class Enemy(NPC):
 
-    def __init__(self,image,damage,health,*abilities):
-        NPC.__init__(image)
+    def __init__(self,filepath,damage,health,*abilities):
+        NPC.__init__(self,filepath)
         self.base_damage = damage
+        self.description = ''
         self.health = health
         self.abilities = abilities
+        self.animation =CA()
+        self.animation.loadAnimation(
+            filepath + "/Right/tile0**.png",
+            filepath + "/Left/tile0**.png",
+            filepath + "/Up/tile0**.png",
+            filepath + "/Down /tile0**.png"
+        )
+
     #Buff allies, harm foes
     def battle(self,allies=None,foes=None):
         '''Fighting Mechanics will go here
@@ -37,8 +48,6 @@ class Enemy(NPC):
         for index,atk in enumerate(self.abilities):
             if atk.likelihood < id and not (self.abilities[index + 1]  <id):
                 return atk
-
-
 
 
         pass

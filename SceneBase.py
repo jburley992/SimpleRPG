@@ -1,4 +1,5 @@
-import Character, pygame, Camera
+import pygame, Camera,random, copy
+import enemies as e
 import HelperFunctions as HF
 from animation import Static_Animation as SA
 from pygame.locals import *
@@ -69,7 +70,7 @@ class MenuScene(Scene):
         self.cursor = pygame.image.load("null.png")
         self.cursor_Rect = self.cursor.get_rect()
         self.cursor_Rect.centery = WINDOWHEIGHT/1.33
-        self.cursor_Rect.left = WINDOWWIDTH/3
+        self.cursor_Rect.left = WINDOWWIDTH/2 - WINDOWWIDTH/8
         self.cursorLoc = 0
 
     def processEvents(self,event):
@@ -86,7 +87,7 @@ class MenuScene(Scene):
                     self.cursor_Rect.top -= 80
                     self.cursorLoc -= 1
             if event.key == ord("s"):
-                if self.cursorLoc < 2:
+                if self.cursorLoc < 1:
                     self.cursor_Rect.top += 80
                     self.cursorLoc += 1
         if event.type == self.changeAnim:
@@ -127,7 +128,7 @@ class Scene_01(Scene):
         self.walls = HF.generateWalls(wallPath,windowWidth=5120,windowHeight=2880)
         self.isMenuOpen = False
         self.BATTLE = pygame.USEREVENT + 3
-        pygame.time.set_timer(self.BATTLE, 5000)
+        pygame.time.set_timer(self.BATTLE, 1000)
 
 
     def updateScene(self):
@@ -148,9 +149,10 @@ class Scene_01(Scene):
                     if event.key == K_TAB:
                         self.isMenuOpen = True
                         #Actually Fix
-               # if event.type == self.BATTLE:
-                   # if HF.battleProbability():
-                        #self.changeScene(Battle(self.player))
+                if event.type == self.BATTLE:
+                   #if HF.battleProbability():
+                        self.player.image = self.player.animation.walkLeft[0]
+                        self.changeScene(Battle("tiles/tile057.png","tiles/tile063.png",self.player,enemies=[e.spider]))
 
                 self.player.movementController(event)
         else:
@@ -190,25 +192,59 @@ class Scene_01(Scene):
 
 class Battle(Scene_01):
     #pass in array of enemies
-    def __init__(self,enemies=[]):
-        Scene.__init__(self)
-        #Design enemy so that it Can be part of a sprite Group
-#        for enemy in enemies:
-       #     self.entities.add(enemy)
+    def __init__(self,filepath1=None,filepath2=None,player=None,enemies=None):
+        Scene_01.__init__(self,filepath1,filepath2,player,wallPath=None)
+        self.enemies = []
+        if enemies != None:
+            for enemy in enemies:
+                self.enemies.append(enemy)
+        self.background = HF.tileEntireBg(filepath1,windowHeight=WINDOWHEIGHT,yLoc=WINDOWHEIGHT/1.7)
+        self.terrain = HF.speckleBackground(filepath2,50,windowHeight=WINDOWHEIGHT,min_height=WINDOWHEIGHT*2/3)
+        #Add to entities
+        cloud = SA(pygame.image.load("cloud.png"))
+        cloud.image = pygame.transform.scale(cloud.image,(int(WINDOWWIDTH/10),int(WINDOWHEIGHT/10)))
+        cloud.rect = Rect((WINDOWWIDTH/2,WINDOWHEIGHT/10),(100,100))
+        self.player.rect.centerx = WINDOWWIDTH*2/3
+        self.player.rect.centery = WINDOWHEIGHT/1.35
+        self.entities.add(self.player)
+        self.isMenuOpen = True
+        for x in range(random.randint(3,4)):
+            tmp =copy.deepcopy(cloud)
+            tmp.rect.centerx += random.randint(-WINDOWWIDTH,WINDOWWIDTH)
+            tmp.rect.centery += random.randint(-WINDOWHEIGHT/10,WINDOWHEIGHT/10)
+            self.entities.add(tmp)
 
 
 
     def processEvents(self,event):
-        pass
+                if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        HF.exitAction()
+                    self.player.battleMenu.change_child(event,self.enemies)
+
+
 
     def updateScene(self):
         pass
 
-    #Change this method so that Camera does not follow player in battle Scene
     def renderScene(self,window):
-        #Sky Blue
+        #Setup
         window.fill((117, 220, 255))
-        pass
+        for tile in self.background:
+            rect = pygame.Rect(tile,(32,32))
+            window.blit(self.backgroundImage,rect)
+        for tile in self.terrain:
+            rect = pygame.Rect(tile,(32,32))
+            window.blit(self.terrainimg,rect)
+        #end Setup
+        for entity in self.entities:
+            window.blit(entity.image,entity.rect)
+        for enemy in self.enemies:
+            window.blit(enemy.image,enemy.rect)
+        self.player.battleMenu.renderChildren(window)
+
+
+
 
 
 ####################################################################

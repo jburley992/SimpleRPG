@@ -1,4 +1,4 @@
-import pygame, glob
+import pygame, glob,copy
 from pygame import *
 
 class Animation(pygame.sprite.Sprite):
@@ -21,6 +21,19 @@ class Static_Animation(Animation):
         self.rect = self.image.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
+
+    #Overloaded assignment operators
+    def __copy__(self):
+        newAnim = type(self)(self.image)
+        newAnim.rect = self.rect
+        newAnim.__dict__.update(self.__dict__)
+        return newAnim
+
+    def __deepcopy__(self, memodict={}):
+        newAnim = type(self)(self.image)
+        self.rect = copy.deepcopy(self.rect,memodict)
+        newAnim.__dict__.update(self.__dict__)
+        return newAnim
 
     def loadAnimation(self,animation):
         self.animation = glob.glob(animation)
@@ -46,6 +59,8 @@ class Character_Animation(Animation):
         self.walkUp = 0
         self.walkDown = 0
 
+    #Imlplement Overloaded Deep copy operation
+
     def loadAnimation(self,animR,animL,animU,animD):
         self.walkRight = glob.glob(animR)
         self.walkRight.sort()
@@ -67,3 +82,6 @@ class Character_Animation(Animation):
         self.walkDown.sort()
         for index,img in enumerate(self.walkDown):
             self.walkDown[index] = pygame.image.load(img)
+
+    def battleAnimation(self):
+        pass
