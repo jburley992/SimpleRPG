@@ -116,9 +116,9 @@ def selectScale():
     return scale
 
 
-def exitAction(event=None):
-    pygame.quit()
-    sys.exit(0)
+def exitAction(*args):
+        pygame.quit()
+        sys.exit(0)
 
 
 

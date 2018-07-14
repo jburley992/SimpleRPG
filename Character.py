@@ -1,5 +1,6 @@
 import pygame,menu
 from animation import Character_Animation as CA
+import HelperFunctions as HF
 from pygame import *
 # When accessing files be sure to make it so that the files can be accessed on both
 # windows and unix environments
@@ -24,7 +25,7 @@ class Hero(pygame.sprite.Sprite):
         self.maxAnimLength = len(self.animation.walkRight)
         self.changeAnim = pygame.USEREVENT + 1
         pygame.time.set_timer(self.changeAnim, 125)
-
+        self.damage = 5
         #Menu
         self.menu = menu.Menu()
         self.battleMenu =menu.battleMenu()
@@ -86,6 +87,32 @@ class Hero(pygame.sprite.Sprite):
 
     def menuController(self,event):
             self.menu.change_child(event)
+
+
+    #Implement these functions
+    def interactWithBattleMenu(self):
+        subMenu = self.battleMenu.children[self.battleMenu.selectedChild]
+        if subMenu.title == "Attack":
+            self.attack()
+        elif subMenu.title == "Inventory":
+            self.useItem()
+        elif subMenu.title == "Spells":
+            self.cast()
+        elif subMenu.title == "Run":
+            if HF.runchance():
+                self.returnToLevel()
+        elif subMenu.title == "Exit":
+                HF.exitAction()
+
+    def attack(self):
+        #Implement Battle Animation
+        subMenu = self.battleMenu.children[self.battleMenu.selectedChild]
+        subMenu.items[subMenu.index].health -= self.damage
+        if(subMenu.items[subMenu.index].health ) <= 0:
+            subMenu.items.remove(subMenu.items[subMenu.index])
+            subMenu.index = len(subMenu.items) - 1
+
+
 
 
 

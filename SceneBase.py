@@ -14,6 +14,7 @@ class Scene(object):
         self.next = self
         self.background = []
         self.backgroundImage = 0
+        self.prev = None
 
     # Put in event loop, process events since last frame
     def processEvents(self,event):
@@ -30,16 +31,17 @@ class Scene(object):
 
     def changeScene(self,nextScene):
         self.next = nextScene
+        self.next.next = nextScene
+        self.next.prev = self
 
     def goToMenu(self):
         # save current scene state
         self.changeScene(nextScene=MenuScene())
 
 
+    def returnToPreviousScene(self):
+        self.changeScene(self.prev)
 
-
-
-#This will be the only menu, it is not necessary to prep it for inheritance
 class MenuScene(Scene):
 
     def __init__(self,player=None):
@@ -132,6 +134,7 @@ class Scene_01(Scene):
 
 
     def updateScene(self):
+        print("12345679")
         self.player.move_hero()
         self.camera.update(self.player)
         for wall in self.walls:
@@ -150,9 +153,10 @@ class Scene_01(Scene):
                         self.isMenuOpen = True
                         #Actually Fix
                 if event.type == self.BATTLE:
-                   #if HF.battleProbability():
+                   if HF.battleProbability():
                         self.player.image = self.player.animation.walkLeft[0]
-                        self.changeScene(Battle("tiles/tile057.png","tiles/tile063.png",self.player,enemies=[e.spider]))
+                        print("YOLO")
+                        self.changeScene(Battle("tiles/tile057.png","tiles/tile063.png",self.player,enemies=[e.spider,e.spider2]))
 
                 self.player.movementController(event)
         else:
@@ -203,11 +207,12 @@ class Battle(Scene_01):
         #Add to entities
         cloud = SA(pygame.image.load("cloud.png"))
         cloud.image = pygame.transform.scale(cloud.image,(int(WINDOWWIDTH/10),int(WINDOWHEIGHT/10)))
-        cloud.rect = Rect((WINDOWWIDTH/2,WINDOWHEIGHT/10),(100,100))
+        cloud.rect = pygame.Rect((WINDOWWIDTH/2,WINDOWHEIGHT/10),(100,100))
         self.player.rect.centerx = WINDOWWIDTH*2/3
         self.player.rect.centery = WINDOWHEIGHT/1.35
         self.entities.add(self.player)
         self.isMenuOpen = True
+        self.selected = None
         for x in range(random.randint(3,4)):
             tmp =copy.deepcopy(cloud)
             tmp.rect.centerx += random.randint(-WINDOWWIDTH,WINDOWWIDTH)
@@ -220,12 +225,15 @@ class Battle(Scene_01):
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
                         HF.exitAction()
-                    self.player.battleMenu.change_child(event,self.enemies)
+                    if event.key == K_RETURN:
+                        self.player.interactWithBattleMenu()
+                self.selected =  self.player.battleMenu.change_child(event,self.enemies)
 
 
 
     def updateScene(self):
-        pass
+        if len(self.enemies) == 0:
+            self.returnToPreviousScene()
 
     def renderScene(self,window):
         #Setup
@@ -237,10 +245,14 @@ class Battle(Scene_01):
             rect = pygame.Rect(tile,(32,32))
             window.blit(self.terrainimg,rect)
         #end Setup
+
+
         for entity in self.entities:
             window.blit(entity.image,entity.rect)
         for enemy in self.enemies:
             window.blit(enemy.image,enemy.rect)
+
+
         self.player.battleMenu.renderChildren(window)
 
 

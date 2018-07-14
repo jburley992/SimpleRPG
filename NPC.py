@@ -11,6 +11,20 @@ class NPC(pygame.sprite.Sprite):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Make this Work
 class Enemy(NPC):
 
     def __init__(self,filepath,damage,health,*abilities):
@@ -49,5 +63,7 @@ class Enemy(NPC):
             if atk.likelihood < id and not (self.abilities[index + 1]  <id):
                 return atk
 
+    def __del__(self):
+        self.kill()
 
-        pass
+

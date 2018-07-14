@@ -1,4 +1,5 @@
-import pygame
+import pygame,enemies
+from pygame.locals import *
 import HelperFunctions as HF
 from interactables import Weapons as w
 from pygame import *
@@ -21,13 +22,10 @@ class MenuItem(object):
         textRect = pygame.Rect((HF.WINDOWWIDTH/2 - 350, 130), HF.ICONSIZE)
         textRect.left += 225
         scale = HF.selectScale()
-        print("Hello World")
-        print(self.index)
         for item in self.items:
             if item.image != None:
-                item.image = pygame.transform.scale(item.image,(int(item.rect.width*scale),int(item.rect.height*scale)))
-                window.blit(item.image,rect)
-                print(self.cursorRect)
+                if type(item) != type(enemies.spider):
+                    window.blit(item.image,rect)
                 window.blit(self.cursor,self.cursorRect)
                 if item.description != None:
                     HF.draw_text(item.description[:25],window,textRect.centerx,textRect.centery,size=HF.selectTextSize(),font="Typewriter.ttf")
@@ -39,24 +37,23 @@ class MenuItem(object):
     def addItem(self,item):
         self.items.append(item)
 
-    def chooseEnemyToAttack(self,enemies=None): #event
+    def chooseEnemyToAttack(self,event,enemies=None):
         amount = len(enemies)
+        if(amount == 0):
+            #End battle
+            return
         self.items = enemies
-        self.index = 0
-        self.cursorRect.centerx = enemies[self.index].rect.centerx
-        self.cursorRect.centery = enemies[self.index].rect.centery - 100
-        while True:
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit(0)
-                if event.type == KEYDOWN:
-                    if event.key == K_RETURN:
-                        return 
-                    if event.key == ord("w") and self.index > 0:
-                        self.index += 1
-                    elif event.key == ord("a") and self.index < (amount - 1):
-                        self.index -= 1
+        self.cursorRect.centerx = enemies[self.index].rect.centerx - 100
+        self.cursorRect.centery = enemies[self.index].rect.centery
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit(0)
+        if event.type == KEYDOWN:
+            if event.key == K_UP and self.index < (amount -1):
+                self.index += 1
+                print(self.index)
+            elif event.key == K_DOWN and self.index > 0:
+                self.index -= 1
 
 
 
@@ -93,22 +90,27 @@ class Menu(object):
         self.children.append(item)
 
     def change_child(self,event,enemies=[]):
-            if event.key == ord("w"):
-                if self.selectedChild == 0:
-                    pass
-                else:
-                    self.selectedChild -= 1
-                    self.cursor_Rect.top -= 60
 
-            elif event.key == ord("s"):
-                if self.selectedChild == len(self.children) - 1:
-                    pass
-                else:
-                    self.selectedChild += 1
-                    self.cursor_Rect.top += 60
+            if event.type == KEYDOWN:
 
-            elif event.key == K_RETURN:
-                self.children[self.selectedChild].action(self.children[self.selectedChild],enemies)
+                if event.key == ord("w"):
+                    if self.selectedChild == 0:
+                        pass
+                    else:
+                        self.selectedChild -= 1
+                        self.cursor_Rect.top -= 60
+                elif event.key == ord("s"):
+                    if self.selectedChild == len(self.children) - 1:
+                        pass
+                    else:
+                        self.selectedChild += 1
+                        self.cursor_Rect.top += 60
+            # Menu Children events Called here
+            if  self.children[self.selectedChild].action != None:
+                self.children[self.selectedChild].action(self.children[self.selectedChild],event,enemies)
+                #Will return what object is selected in the list
+                return self.children.index
+
 
     def renderChildren(self,window):
 
@@ -132,9 +134,8 @@ class battleMenu(Menu):
             MenuItem("Inventory",None),
             MenuItem("Attack", MenuItem.chooseEnemyToAttack),
             MenuItem("Spells",None),
-            MenuItem("Quests",None),
             MenuItem("Run",None),
-            MenuItem("Exit",HF.exitAction)
+            MenuItem("Exit",None)
         ]
         self.cursor_Rect.left = 0
         self.cursor_Rect.top = self.offset + 55

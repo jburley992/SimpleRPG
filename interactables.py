@@ -2,15 +2,16 @@ import pygame
 
 class interactables(pygame.sprite.Sprite):
 
-    def __init__(self,img=None):
+    def __init__(self,image=None):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(img)
+        if image != None:
+            self.image = pygame.image.load(image)
         self.rect = self.image.get_rect()
 
     def collisionAction(self,hero):
         print("Overwrite")
 
-    def activateAction(self,hero):
+    def activateAction(self,hero,event):
         print("overwrite")
 
 
@@ -41,3 +42,17 @@ class Weapons(interactables):
         self.damage = damage
         #Elemental Weapons?
         self.ability = ability
+
+
+
+class Buildings(interactables):
+
+    def __init__(self,x,y,img=None):
+        interactables.__init__(self)
+        self.rect.centerx = x
+        self.rect.centery = y
+
+    def collisionAction(self,hero):
+        if self.rect.colliderect(hero.rect):
+            #Enter Housr === ChangeScene
+            pass

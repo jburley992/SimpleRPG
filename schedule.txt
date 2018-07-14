@@ -1,9 +1,24 @@
 
 Tuesday
 -------------------------------------------
-Fix Scaling For any resolution
-Battle System
-NPC
+Return to Previous Scene
+Add Music
+
+
+Wednesday
+------------------------------------------
+Refactor all code
+Improve file hierarchy
+
+
+Thursday
+--------------------------------------------
+Animations on Battle Scene
+Enemies Attacking back
+
+
+Friday
+--------------------------------
 Spells/Weapons
 
 
@@ -13,3 +28,4 @@ Later
 	Flashing Logos on Menu
 	Scroll Through Menu
 	State Information(Saving Game, is item in inventory, etc.)
+	Fix Scaling For any resolution
